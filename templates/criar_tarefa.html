@@ -1,0 +1,63 @@
+{% extends "base_logado.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            
+            <h4 class="text-center">To do App</h4>
+        </div>
+        <div class="card-body">
+            <form method="POST" action="{{ url_for('criar_tarefa') }}">
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Titulo..." required>
+                </div>
+
+                <div class="mb-3">
+                    <textarea class="form-control" id="descricao" name="descricao" rows="4"
+                        placeholder="Criar nova tarefa..." required></textarea>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="data_limite" class="form-label">Data Limite</label>
+                        <input type="date" class="form-control" id="data_limite" name="data_limite" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="status" class="form-label">Status</label>
+                        <select class="form-select" id="status" name="status" required>
+                            <option value="Pendente">Pendente</option>
+                            <option value="Em andamento">Em andamento</option>
+                            <option value="Concluida">Concluída</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    
+                    <div class="col-md-6 mb-3">
+                        <label for="prioridade" class="form-label">Prioridade</label>
+                        <select class="form-select" id="prioridade" name="prioridade" required>
+                            <option value="Baixa">Baixa</option>
+                            <option value="Media">Média</option>
+                            <option value="Alta">Alta</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria" class="form-label">Categoria</label>
+                        <select class="form-select" id="categoria" name="categoria" required>
+                            <option value="Trabalho">Trabalho</option>
+                            <option value="Estudo">Estudo</option>
+                            <option value="Pessoal">Pessoal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-25 mx-auto d-block rounded-pill">Adicionar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

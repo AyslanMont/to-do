@@ -1,0 +1,48 @@
+{% extends "base_logado.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <h4 class="text-center">Minhas Tarefas</h4>
+    <div class="row">
+        {% for tarefa in dados %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h5>{{ tarefa.tar_titulo }}</h5>
+                </div>
+                <div class="card-body">
+                    <p><strong>Descrição:</strong> {{ tarefa.tar_desc }}</p>
+                    <p><strong>Data Limite:</strong> {{ tarefa.tar_data_limite }}</p>
+                    <p><strong>Status:</strong> {{ tarefa.tar_status }}</p>
+                    <p><strong>Prioridade:</strong> {{ tarefa.tar_prioridade }}</p>
+                    <p><strong>Categoria:</strong> {{ tarefa.tar_categoria }}</p>
+                    <p><strong>ID:</strong> {{ tarefa.tar_id }}</p>
+                </div>
+                <hr>
+                <div class="row text-center">
+                    <div class="col-6 mb-2">
+                        <a href="{{ url_for('atualizar_tarefa') }}"><button
+                                class="btn btn-warning w-100">Atualizar</button> </a>
+                    </div>
+                    <div class="col-6 mb-2">
+                        <a href="{{ url_for('deletar_tarefa', id=tarefa.tar_id) }}"><button
+                                class="btn btn-danger w-100">Deletar</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        {% set mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+        <div class="text-center mt-4 container w-50 mx-auto">
+            <p class="alert alert-{{ mensagens[0][0] }}">{{ mensagens[0][1] }}</p>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock %}
