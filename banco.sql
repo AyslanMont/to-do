@@ -20,12 +20,3 @@ tar_categoria VARCHAR(10) NOT NULL,
 tar_usu_id INT NOT NULL,
 FOREIGN KEY(tar_usu_id) REFERENCES tb_usuarios(usu_id)
 );
-
-
-CREATE TABLE tb_tarefas_usuario(
-    tus_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    tus_usu_id INT NOT NULL,
-    tus_tar_id INT NOT NULL,
-    FOREIGN KEY(tus_usu_id) REFERENCES tb_usuarios(usu_id),
-    FOREIGN KEY(tus_tar_id) REFERENCES tb_tarefas(tar_id)
-);

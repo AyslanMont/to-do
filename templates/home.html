@@ -2,9 +2,61 @@
 
 {% block content %}
 
-<div class="container mt-5">
+<div class="container mt-5 mb-5">
     <h4 class="text-center">Minhas Tarefas</h4>
-    <div class="row">
+    <form method="POST" action="{{ url_for('home') }}">
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <label for="status">Status</label>
+                <select id="status" name="status" class="form-control">
+                    <option value="">Todos</option>
+                    <option value="Pendente">Pendente</option>
+                    <option value="Em andamento">Em andamento</option>
+                    <option value="Concluída">Concluída</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="data_criacao">Data de Criação</label>
+                <input type="date" id="data_criacao" name="data_criacao" class="form-control">
+            </div>
+
+            <div class="col-md-3">
+                <label for="data_limite">Data Limite</label>
+                <input type="date" id="data_limite" name="data_limite" class="form-control">
+            </div>
+
+            <div class="col-md-3">
+                <label for="prioridade">Prioridade</label>
+                <select id="prioridade" name="prioridade" class="form-control">
+                    <option value="">Todas</option>
+                    <option value="Alta">Alta</option>
+                    <option value="Média">Média</option>
+                    <option value="Baixa">Baixa</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="categoria">Categoria</label>
+                <select id="categoria" name="categoria" class="form-control">
+                    <option value="">Todas</option>
+                    <option value="Trabalho">Trabalho</option>
+                    <option value="Estudo">Estudo</option>
+                    <option value="Pessoal">Pessoal</option>
+                </select>
+            </div>
+
+            <div class="col-md-3">
+                <label for="descricao">Descrição</label>
+                <input type="text" id="descricao" name="descricao" class="form-control"
+                    placeholder="Buscar por descrição">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-50 mx-auto d-block rounded-pill">Filtrar</button>
+    </form>
+
+    <div class="row mt-4">
         {% for tarefa in dados %}
         <div class="col-md-4 mb-4">
             <div class="card">

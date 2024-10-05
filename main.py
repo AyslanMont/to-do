@@ -113,14 +113,61 @@ def logout():
 @login_required
 def home():
 
-    cursor = mysql.connection.cursor()
-    SELECT = "SELECT * FROM tb_tarefas WHERE tar_usu_id = %s"
-    cursor.execute(SELECT, (current_user.id,))
-    dados = cursor.fetchall()
-    if not dados:
-        flash("Você ainda não criou nenhuma tarefa.", "warning")
+    if request.method == "POST":
+        status = request.form['status']
+        data_criacao = request.form['data_criacao']
+        data_limite = request.form['data_limite']
+        prioridade = request.form['prioridade']
+        categoria = request.form['categoria']
+        descricao = request.form['descricao']
 
-    return render_template("home.html", dados=dados)
+        query = "SELECT * FROM tb_tarefas WHERE tar_usu_id = %s"
+        filters = [current_user.id]
+
+        if status:
+            query += " AND tar_status = %s"
+            filters.append(status)
+        
+        if data_criacao:
+            query += " AND tar_data_criacao = %s"
+            filters.append(data_criacao)
+        
+        if data_limite:
+            query += " AND tar_data_limite = %s"
+            filters.append(data_limite)
+        
+        if prioridade:
+            query += " AND tar_prioridade = %s"
+            filters.append(prioridade)
+        
+        if categoria:
+            query += " AND tar_categoria = %s"
+            filters.append(categoria)
+        
+        if descricao:
+            query += " AND tar_desc LIKE %s"
+            filters.append(f"%{descricao}%")
+        
+        cursor = mysql.connection.cursor()
+        cursor.execute(query, tuple(filters))
+        dados = cursor.fetchall()
+        cursor.close()
+
+        if not dados:
+            flash("Não conseguimos encontrar nenhuma tarefa.", "warning")
+
+        return render_template("home.html", dados=dados)
+    
+    else:
+
+        cursor = mysql.connection.cursor()
+        SELECT = "SELECT * FROM tb_tarefas WHERE tar_usu_id = %s"
+        cursor.execute(SELECT, (current_user.id,))
+        dados = cursor.fetchall()
+        if not dados:
+            flash("Você ainda não criou nenhuma tarefa.", "warning")
+
+        return render_template("home.html", dados=dados)
 
 @app.route("/criar-tarefa", methods=["GET", "POST"])
 @login_required

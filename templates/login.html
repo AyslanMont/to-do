@@ -9,11 +9,11 @@
 
 {% set mensagens = get_flashed_messages(with_categories=true) %}
 {% if mensagens %}
-    <div class="text-center mt-4 container w-50 mx-auto">
-        {% for categoria, msg in mensagens %}
-            <p class="alert alert-{{ categoria }}">{{ msg }}</p>
-        {% endfor %}
-    </div>
+<div class="text-center mt-4 container w-50 mx-auto">
+    {% for categoria, msg in mensagens %}
+    <p class="alert alert-{{ categoria }}">{{ msg }}</p>
+    {% endfor %}
+</div>
 {% endif %}
 
 <div class="container mt-5">
@@ -26,7 +26,8 @@
         </div>
         <div class="mb-3">
             <label for="loginsenha" class="form-label">Senha</label>
-            <input type="password" class="form-control rounded-pill" id="loginsenha" name="password" required placeholder="Digite sua senha...">
+            <input type="password" class="form-control rounded-pill" id="loginsenha" name="password" required
+                placeholder="Digite sua senha...">
         </div>
         <button type="submit" class="btn btn-primary w-50 mx-auto d-block rounded-pill">Entrar</button>
         <hr>
